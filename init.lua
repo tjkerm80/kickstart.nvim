@@ -477,7 +477,16 @@ require('lazy').setup({
         sections = {
           lualine_a = { 'mode' },
           lualine_b = { 'branch', 'diff', 'diagnostics' },
-          lualine_c = { { 'filename', path = 1 } },
+          lualine_c = {
+            { 'filename', path = 1 },
+            function()
+              return require('nvim-treesitter').statusline {
+                indicator_size = 50,
+                type_patterns = { 'class', 'function', 'method' },
+                separator = ' -> ',
+              }
+            end,
+          },
           lualine_x = { 'encoding', 'fileformat', 'filetype' },
           lualine_y = { 'progress' },
           lualine_z = { 'location' },
@@ -493,7 +502,7 @@ require('lazy').setup({
         tabline = {},
         winbar = {},
         inactive_winbar = {},
-        extensions = {},
+        extensions = { 'quickfix', 'neo-tree' },
       }
     end,
   },
